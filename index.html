@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,133 +7,87 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:       #0D1117;
-      --surface:  #161B22;
-      --border:   #21262D;
-      --violet:   #7C3AED;
-      --violet2:  #A855F7;
-      --cyan:     #06B6D4;
-      --text:     #E2E8F0;
-      --muted:    #8B949E;
-      --green:    #3FB950;
-      --radius:   10px;
+      --bg: #0D1117; --surface: #161B22; --border: #21262D;
+      --violet: #7C3AED; --violet2: #A855F7; --cyan: #06B6D4;
+      --text: #E2E8F0; --muted: #8B949E; --green: #3FB950; --radius: 10px;
     }
-
     html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
+    /* ── LANG SWITCHER ── */
+    .lang-switcher {
+      display: flex; gap: 6px; align-items: center;
     }
+    .lang-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); border-radius: 6px;
+      padding: 3px 10px; font-size: .78rem;
+      cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+      transition: all .2s;
+    }
+    .lang-btn:hover { border-color: var(--violet2); color: var(--violet2); }
+    .lang-btn.active { border-color: var(--violet); color: var(--violet2); background: rgba(124,58,237,.15); }
 
     /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw;
-      height: 60px;
+      padding: 0 5vw; height: 60px;
       background: rgba(13,17,23,0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--text);
-      text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem;
+      color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px;
     }
     .nav-logo span { color: var(--violet2); }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
     .nav-links { display: flex; gap: 28px; }
-    .nav-links a {
-      color: var(--muted); text-decoration: none;
-      font-size: .9rem; transition: color .2s;
-    }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
 
     /* ── HERO ── */
     .hero {
-      min-height: 90vh;
-      display: flex; flex-direction: column;
+      min-height: 90vh; display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      padding: 80px 5vw 60px;
-      text-align: center;
+      padding: 80px 5vw 60px; text-align: center;
       position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(124,58,237,.18) 0%, transparent 70%);
       pointer-events: none;
     }
     .badge {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 4px 14px; border-radius: 999px;
-      background: rgba(124,58,237,.15);
-      border: 1px solid rgba(124,58,237,.35);
+      background: rgba(124,58,237,.15); border: 1px solid rgba(124,58,237,.35);
       font-size: .8rem; color: var(--violet2);
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 24px;
+      font-family: 'Space Grotesk', sans-serif; margin-bottom: 24px;
     }
     .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      font-weight: 700;
-      line-height: 1.1;
-      max-width: 720px;
-      margin-bottom: 18px;
-    }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; max-width: 720px; margin-bottom: 18px; }
     h1 em { font-style: normal; color: var(--violet2); }
-    .hero-sub {
-      color: var(--muted); max-width: 500px;
-      font-size: 1.05rem; margin-bottom: 36px;
-    }
+    .hero-sub { color: var(--muted); max-width: 500px; font-size: 1.05rem; margin-bottom: 36px; }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 12px 28px; border-radius: var(--radius);
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600; font-size: .95rem;
-      text-decoration: none; transition: all .2s;
-      cursor: pointer; border: none;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: .95rem;
+      text-decoration: none; transition: all .2s; cursor: pointer; border: none;
     }
-    .btn-primary {
-      background: var(--violet); color: #fff;
-      box-shadow: 0 0 24px rgba(124,58,237,.35);
-    }
+    .btn-primary { background: var(--violet); color: #fff; box-shadow: 0 0 24px rgba(124,58,237,.35); }
     .btn-primary:hover { background: var(--violet2); box-shadow: 0 0 32px rgba(168,85,247,.5); transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border);
-    }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
     .btn-outline:hover { border-color: var(--violet2); color: var(--violet2); }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 52px; }
 
     /* ── TERMINAL ── */
-    .terminal {
-      width: 100%; max-width: 600px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
-      text-align: left;
-    }
-    .term-bar {
-      display: flex; align-items: center; gap: 7px;
-      padding: 10px 16px;
-      background: #1C2128; border-bottom: 1px solid var(--border);
-    }
+    .terminal { width: 100%; max-width: 600px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.5); text-align: left; }
+    .term-bar { display: flex; align-items: center; gap: 7px; padding: 10px 16px; background: #1C2128; border-bottom: 1px solid var(--border); }
     .term-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .term-dot.r { background: #FF5F57; }
-    .term-dot.y { background: #FFBD2E; }
-    .term-dot.g { background: #28C840; }
+    .term-dot.r { background: #FF5F57; } .term-dot.y { background: #FFBD2E; } .term-dot.g { background: #28C840; }
     .term-label { font-size: .75rem; color: var(--muted); margin-left: 6px; font-family: 'JetBrains Mono', monospace; }
     .term-body { padding: 18px 20px; font-family: 'JetBrains Mono', monospace; font-size: .82rem; line-height: 1.9; min-height: 140px; }
     .term-prompt { color: var(--green); }
@@ -145,93 +99,41 @@
 
     /* ── SECTION ── */
     section { padding: 80px 5vw; }
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .75rem; color: var(--cyan);
-      text-transform: uppercase; letter-spacing: .12em;
-      margin-bottom: 10px;
-    }
-    h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 700; margin-bottom: 14px;
-    }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: var(--cyan); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 10px; }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; margin-bottom: 14px; }
     .section-desc { color: var(--muted); max-width: 520px; margin-bottom: 48px; }
     .max-w { max-width: 1000px; margin: 0 auto; }
 
     /* ── COMMANDES ── */
-    .commands-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-    .cmd-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      transition: border-color .2s, transform .2s;
-    }
+    .commands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .cmd-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: border-color .2s, transform .2s; }
     .cmd-card:hover { border-color: var(--violet); transform: translateY(-2px); }
-    .cmd-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .9rem; font-weight: 600;
-      color: var(--violet2); margin-bottom: 8px;
-    }
+    .cmd-name { font-family: 'JetBrains Mono', monospace; font-size: .9rem; font-weight: 600; color: var(--violet2); margin-bottom: 8px; }
     .cmd-desc { font-size: .88rem; color: var(--muted); }
-    .cmd-tag {
-      display: inline-block; margin-top: 10px;
-      padding: 2px 10px; border-radius: 999px;
-      font-size: .72rem;
-      background: rgba(6,182,212,.12); color: var(--cyan);
-      border: 1px solid rgba(6,182,212,.25);
-    }
+    .cmd-tag { display: inline-block; margin-top: 10px; padding: 2px 10px; border-radius: 999px; font-size: .72rem; background: rgba(6,182,212,.12); color: var(--cyan); border: 1px solid rgba(6,182,212,.25); }
 
     /* ── FAQ ── */
     .faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 720px; }
-    details {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
-    }
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
     details[open] { border-color: var(--violet); }
-    summary {
-      padding: 18px 20px; cursor: pointer;
-      font-family: 'Space Grotesk', sans-serif; font-weight: 600;
-      font-size: .95rem; list-style: none;
-      display: flex; justify-content: space-between; align-items: center;
-      user-select: none;
-    }
-    summary::after { content: '+'; color: var(--violet2); font-size: 1.2rem; transition: transform .2s; }
+    summary { padding: 18px 20px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: .95rem; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+    summary::after { content: '+'; color: var(--violet2); font-size: 1.2rem; }
     details[open] summary::after { content: '−'; }
     .faq-body { padding: 0 20px 18px; color: var(--muted); font-size: .9rem; line-height: 1.7; }
 
     /* ── CONTACT ── */
-    .contact-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 48px;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .contact-box::before {
-      content: '';
-      position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
-      width: 300px; height: 200px;
-      background: radial-gradient(ellipse, rgba(124,58,237,.25) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    .contact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 48px; text-align: center; position: relative; overflow: hidden; }
+    .contact-box::before { content: ''; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 300px; height: 200px; background: radial-gradient(ellipse, rgba(124,58,237,.25) 0%, transparent 70%); pointer-events: none; }
     .contact-box h2 { margin-bottom: 10px; }
     .contact-box p { color: var(--muted); margin-bottom: 28px; }
 
     /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 5vw;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
-      font-size: .83rem; color: var(--muted);
-    }
+    footer { border-top: 1px solid var(--border); padding: 28px 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: .83rem; color: var(--muted); }
+
+    /* ── RTL (Arabic) ── */
+    html[dir="rtl"] body { font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif; }
+    html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    html[dir="rtl"] summary { flex-direction: row-reverse; }
 
     @media (max-width: 600px) {
       .nav-links { display: none; }
@@ -241,218 +143,285 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo"><img src="rexy-logo.png" alt="RexyBot" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" /> Rexy<span>Bot</span></a>
-  <div class="nav-links">
-    <a href="#commandes">Commandes</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Support</a>
+  <a href="#" class="nav-logo">
+    <img src="rexy-logo.png" alt="RexyBot" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" />
+    Rexy<span>Bot</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#commandes" data-i18n="nav_commands">Commandes</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" data-i18n="nav_support">Support</a>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ar')">AR</button>
+    </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <img src="rexy-logo.png" alt="RexyBot mascot" style="width:160px;height:160px;border-radius:50%;object-fit:cover;margin-bottom:24px;box-shadow:0 0 40px rgba(124,58,237,.5);" />
-  <div class="badge"><span class="badge-dot"></span>Bot en ligne · rexybot#7001</div>
-  <h1>Le bot Discord pour<br>les <em>passionnés de PC</em></h1>
-  <p class="hero-sub">Comparez les prix de composants sur les sites FR, analysez les bottlenecks CPU/GPU — directement dans Discord.</p>
+  <img src="rexy-logo.png" alt="RexyBot" style="width:160px;height:160px;border-radius:50%;object-fit:cover;margin-bottom:24px;box-shadow:0 0 40px rgba(124,58,237,.5);" />
+  <div class="badge"><span class="badge-dot"></span><span data-i18n="badge">Bot en ligne · rexybot#7001</span></div>
+  <h1 data-i18n="hero_title">Le bot Discord pour<br>les <em>passionnés de PC</em></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Comparez les prix de composants sur les sites FR, analysez les bottlenecks CPU/GPU — directement dans Discord.</p>
   <div class="hero-ctas">
-    <a href="https://discord.com/oauth2/authorize?client_id=1508795402592190464&permissions=8&integration_type=0&scope=bot" class="btn btn-primary">➕ Inviter RexyBot</a>
-    <a href="#commandes" class="btn btn-outline">Voir les commandes</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1508795402592190464&permissions=8&integration_type=0&scope=bot" class="btn btn-primary">➕ <span data-i18n="btn_invite">Inviter RexyBot</span></a>
+    <a href="#commandes" class="btn btn-outline" data-i18n="btn_commands">Voir les commandes</a>
   </div>
-
-  <!-- Terminal animé -->
   <div class="terminal">
     <div class="term-bar">
-      <div class="term-dot r"></div>
-      <div class="term-dot y"></div>
-      <div class="term-dot g"></div>
+      <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
       <span class="term-label">Discord — #general</span>
     </div>
     <div class="term-body" id="term-output"></div>
   </div>
 </section>
 
-<!-- COMMANDES -->
 <section id="commandes">
   <div class="max-w">
-    <div class="section-label">// commandes</div>
-    <h2>Ce que RexyBot sait faire</h2>
-    <p class="section-desc">Tape une commande dans n'importe quel salon de ton serveur Discord.</p>
+    <div class="section-label">// <span data-i18n="nav_commands">commandes</span></div>
+    <h2 data-i18n="cmd_title">Ce que RexyBot sait faire</h2>
+    <p class="section-desc" data-i18n="cmd_desc">Tape une commande dans n'importe quel salon de ton serveur Discord.</p>
     <div class="commands-grid">
-
       <div class="cmd-card">
         <div class="cmd-name">!prix [composant]</div>
-        <div class="cmd-desc">Recherche le prix d'un composant sur LDLC et Materiel.net et affiche les meilleures offres.</div>
-        <span class="cmd-tag">Prix</span>
+        <div class="cmd-desc" data-i18n="cmd1_desc">Recherche le prix d'un composant sur LDLC et Materiel.net.</div>
+        <span class="cmd-tag" data-i18n="tag_price">Prix</span>
       </div>
-
       <div class="cmd-card">
         <div class="cmd-name">!bottleneck [CPU] / [GPU]</div>
-        <div class="cmd-desc">Calcule le pourcentage de bottleneck entre ton processeur et ta carte graphique.</div>
-        <span class="cmd-tag">Analyse</span>
+        <div class="cmd-desc" data-i18n="cmd2_desc">Analyse IA du bottleneck entre ton CPU et ton GPU.</div>
+        <span class="cmd-tag" data-i18n="tag_analysis">Analyse</span>
       </div>
-
       <div class="cmd-card">
-        <div class="cmd-name">!ldlc [composant]</div>
-        <div class="cmd-desc">Recherche uniquement sur LDLC.com et retourne les résultats filtrés.</div>
-        <span class="cmd-tag">Prix</span>
+        <div class="cmd-name">!build [budget]</div>
+        <div class="cmd-desc" data-i18n="cmd3_desc">Génère une configuration PC complète selon ton budget avec les prix en temps réel.</div>
+        <span class="cmd-tag" data-i18n="tag_build">Config</span>
       </div>
-
       <div class="cmd-card">
-        <div class="cmd-name">!materiel [composant]</div>
-        <div class="cmd-desc">Recherche uniquement sur Materiel.net pour des résultats ciblés.</div>
-        <span class="cmd-tag">Prix</span>
+        <div class="cmd-name">!aide</div>
+        <div class="cmd-desc" data-i18n="cmd4_desc">Affiche la liste complète des commandes disponibles.</div>
+        <span class="cmd-tag" data-i18n="tag_help">Aide</span>
       </div>
-
-      <div class="cmd-card">
-        <div class="cmd-name">!help</div>
-        <div class="cmd-desc">Affiche la liste complète des commandes disponibles avec des exemples.</div>
-        <span class="cmd-tag">Aide</span>
-      </div>
-
-      <div class="cmd-card">
-        <div class="cmd-name">!ping</div>
-        <div class="cmd-desc">Vérifie que le bot est bien en ligne et affiche la latence.</div>
-        <span class="cmd-tag">Utilitaire</span>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section id="faq" style="padding-top:0">
   <div class="max-w">
     <div class="section-label">// faq</div>
-    <h2>Questions fréquentes</h2>
-    <p class="section-desc">Tout ce qu'il faut savoir avant de démarrer.</p>
+    <h2 data-i18n="faq_title">Questions fréquentes</h2>
+    <p class="section-desc" data-i18n="faq_desc">Tout ce qu'il faut savoir avant de démarrer.</p>
     <div class="faq-list">
-
       <details>
-        <summary>Comment inviter RexyBot sur mon serveur ?</summary>
-        <div class="faq-body">Clique sur le bouton "Inviter RexyBot" en haut de cette page, connecte-toi à Discord, choisis ton serveur et accepte les permissions demandées. Le bot apparaîtra immédiatement dans ta liste de membres.</div>
+        <summary data-i18n="faq1_q">Comment inviter RexyBot sur mon serveur ?</summary>
+        <div class="faq-body" data-i18n="faq1_a">Clique sur le bouton "Inviter RexyBot" en haut de cette page, connecte-toi à Discord, choisis ton serveur et accepte les permissions.</div>
       </details>
-
       <details>
-        <summary>Le bot ne répond pas à mes commandes, que faire ?</summary>
-        <div class="faq-body">Vérifie d'abord que RexyBot a bien la permission de lire et d'envoyer des messages dans le salon. Assure-toi aussi de commencer la commande par <code style="color:var(--cyan)">!</code> sans espace. Si le problème persiste, rejoins notre serveur Discord de support.</div>
+        <summary data-i18n="faq2_q">Le bot ne répond pas, que faire ?</summary>
+        <div class="faq-body" data-i18n="faq2_a">Vérifie que RexyBot a bien la permission de lire et d'envoyer des messages. Assure-toi de commencer la commande par ! sans espace.</div>
       </details>
-
       <details>
-        <summary>D'où viennent les prix affichés ?</summary>
-        <div class="faq-body">Les prix sont récupérés en temps réel directement depuis LDLC.com et Materiel.net, deux des plus grands revendeurs de matériel informatique en France. Les résultats peuvent varier selon les stocks disponibles.</div>
+        <summary data-i18n="faq3_q">D'où viennent les prix affichés ?</summary>
+        <div class="faq-body" data-i18n="faq3_a">Les prix sont récupérés en temps réel depuis LDLC.com et Materiel.net, deux des plus grands revendeurs en France.</div>
       </details>
-
       <details>
-        <summary>Comment fonctionne l'analyse de bottleneck ?</summary>
-        <div class="faq-body">La commande <code style="color:var(--cyan)">!bottleneck CPU / GPU</code> compare les performances de ton processeur et de ta carte graphique dans une base de données dédiée pour calculer lequel des deux composants limite l'autre, et de combien de pourcent.</div>
+        <summary data-i18n="faq4_q">Le bot est-il gratuit ?</summary>
+        <div class="faq-body" data-i18n="faq4_a">Oui, RexyBot est totalement gratuit, développé et maintenu par Rex pour la communauté PC.</div>
       </details>
-
-      <details>
-        <summary>Le bot est-il gratuit ?</summary>
-        <div class="faq-body">Oui, RexyBot est totalement gratuit. Il est développé et maintenu par Rex pour la communauté PC francophone.</div>
-      </details>
-
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="max-w">
     <div class="contact-box">
       <div class="section-label" style="justify-content:center;display:flex">// support</div>
-      <h2>Un problème ? Une suggestion ?</h2>
-      <p>Rejoins le serveur Discord de support pour contacter Rex directement ou signaler un bug.</p>
-      <a href="https://discord.gg/WURcgEKswd" class="btn btn-primary">💬 Rejoindre le support Discord</a>
+      <h2 data-i18n="contact_title">Un problème ? Une suggestion ?</h2>
+      <p data-i18n="contact_desc">Rejoins le serveur Discord de support pour contacter Rex directement.</p>
+      <a href="https://discord.gg/WURcgEKswd" class="btn btn-primary">💬 <span data-i18n="contact_btn">Rejoindre le support Discord</span></a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span>© 2025 RexyBot · Fait avec ❤️ par Rex</span>
+  <span>© 2025 RexyBot · <span data-i18n="footer">Fait avec ❤️ par Rex</span></span>
   <span>rexybot#7001</span>
 </footer>
 
-<!-- TERMINAL ANIMATION -->
 <script>
-  const sequences = [
-    [
-      { type: 'cmd', text: '!prix RTX 4070' },
-      { type: 'out', text: '🔍 Recherche en cours...', delay: 600 },
-      { type: 'out ok', text: '✅ LDLC — RTX 4070 Zotac — 519,90 €', delay: 400 },
-      { type: 'out ok', text: '✅ Materiel.net — RTX 4070 MSI — 509,90 €', delay: 300 },
-    ],
-    [
-      { type: 'cmd', text: '!bottleneck Ryzen 5 7600X / RTX 4070' },
-      { type: 'out', text: '⚙️ Analyse du bottleneck...', delay: 700 },
-      { type: 'out ok', text: '✅ Bottleneck CPU : 4.2% — Configuration équilibrée !', delay: 500 },
-    ],
-    [
-      { type: 'cmd', text: '!prix RTX 4060 Ti' },
-      { type: 'out', text: '🔍 Recherche en cours...', delay: 500 },
-      { type: 'out ok', text: '✅ LDLC — RTX 4060 Ti Asus — 399,90 €', delay: 400 },
-      { type: 'out ok', text: '✅ Materiel.net — RTX 4060 Ti Gigabyte — 389,00 €', delay: 300 },
-    ],
-  ];
+// ── TRADUCTIONS ────────────────────────────────────────────────────────────────
+const i18n = {
+  fr: {
+    nav_commands: "Commandes", nav_support: "Support",
+    badge: "Bot en ligne · rexybot#7001",
+    hero_title: "Le bot Discord pour<br>les <em>passionnés de PC</em>",
+    hero_sub: "Comparez les prix de composants sur les sites FR, analysez les bottlenecks CPU/GPU — directement dans Discord.",
+    btn_invite: "Inviter RexyBot", btn_commands: "Voir les commandes",
+    cmd_title: "Ce que RexyBot sait faire",
+    cmd_desc: "Tape une commande dans n'importe quel salon de ton serveur Discord.",
+    cmd1_desc: "Recherche le prix d'un composant sur LDLC et Materiel.net.",
+    cmd2_desc: "Analyse IA du bottleneck entre ton CPU et ton GPU.",
+    cmd3_desc: "Génère une configuration PC complète selon ton budget avec les prix en temps réel.",
+    cmd4_desc: "Affiche la liste complète des commandes disponibles.",
+    tag_price: "Prix", tag_analysis: "Analyse", tag_build: "Config", tag_help: "Aide",
+    faq_title: "Questions fréquentes",
+    faq_desc: "Tout ce qu'il faut savoir avant de démarrer.",
+    faq1_q: "Comment inviter RexyBot sur mon serveur ?",
+    faq1_a: "Clique sur le bouton \"Inviter RexyBot\" en haut de cette page, connecte-toi à Discord, choisis ton serveur et accepte les permissions.",
+    faq2_q: "Le bot ne répond pas, que faire ?",
+    faq2_a: "Vérifie que RexyBot a bien la permission de lire et d'envoyer des messages. Assure-toi de commencer la commande par ! sans espace.",
+    faq3_q: "D'où viennent les prix affichés ?",
+    faq3_a: "Les prix sont récupérés en temps réel depuis LDLC.com et Materiel.net, deux des plus grands revendeurs en France.",
+    faq4_q: "Le bot est-il gratuit ?",
+    faq4_a: "Oui, RexyBot est totalement gratuit, développé et maintenu par Rex pour la communauté PC.",
+    contact_title: "Un problème ? Une suggestion ?",
+    contact_desc: "Rejoins le serveur Discord de support pour contacter Rex directement.",
+    contact_btn: "Rejoindre le support Discord",
+    footer: "Fait avec ❤️ par Rex",
+  },
+  en: {
+    nav_commands: "Commands", nav_support: "Support",
+    badge: "Bot online · rexybot#7001",
+    hero_title: "The Discord bot for<br><em>PC enthusiasts</em>",
+    hero_sub: "Compare component prices on FR stores, analyze CPU/GPU bottlenecks — directly in Discord.",
+    btn_invite: "Invite RexyBot", btn_commands: "See commands",
+    cmd_title: "What RexyBot can do",
+    cmd_desc: "Type a command in any channel of your Discord server.",
+    cmd1_desc: "Search the price of a component on LDLC and Materiel.net.",
+    cmd2_desc: "AI-powered bottleneck analysis between your CPU and GPU.",
+    cmd3_desc: "Generates a complete PC build based on your budget with real-time prices.",
+    cmd4_desc: "Displays the full list of available commands.",
+    tag_price: "Price", tag_analysis: "Analysis", tag_build: "Build", tag_help: "Help",
+    faq_title: "Frequently asked questions",
+    faq_desc: "Everything you need to know before getting started.",
+    faq1_q: "How do I invite RexyBot to my server?",
+    faq1_a: "Click the \"Invite RexyBot\" button at the top of this page, log in to Discord, choose your server and accept the permissions.",
+    faq2_q: "The bot is not responding, what should I do?",
+    faq2_a: "Make sure RexyBot has permission to read and send messages. Make sure to start the command with ! without a space.",
+    faq3_q: "Where do the prices come from?",
+    faq3_a: "Prices are fetched in real time from LDLC.com and Materiel.net, two of the largest hardware retailers in France.",
+    faq4_q: "Is the bot free?",
+    faq4_a: "Yes, RexyBot is completely free, developed and maintained by Rex for the PC community.",
+    contact_title: "A problem? A suggestion?",
+    contact_desc: "Join the Discord support server to contact Rex directly.",
+    contact_btn: "Join Discord support",
+    footer: "Made with ❤️ by Rex",
+  },
+  ar: {
+    nav_commands: "الأوامر", nav_support: "الدعم",
+    badge: "البوت متصل · rexybot#7001",
+    hero_title: "بوت ديسكورد لـ<br><em>عشاق الحاسوب</em>",
+    hero_sub: "قارن أسعار المكونات على المتاجر الفرنسية، وحلّل اختناقات CPU/GPU — مباشرة في ديسكورد.",
+    btn_invite: "دعوة RexyBot", btn_commands: "عرض الأوامر",
+    cmd_title: "ما يمكن لـ RexyBot فعله",
+    cmd_desc: "اكتب أمراً في أي قناة من خادم ديسكورد الخاص بك.",
+    cmd1_desc: "البحث عن سعر مكوّن على LDLC وMateriel.net.",
+    cmd2_desc: "تحليل الاختناق بين المعالج وبطاقة الرسومات بالذكاء الاصطناعي.",
+    cmd3_desc: "توليد تكوين كامل للحاسوب حسب الميزانية مع الأسعار الحية.",
+    cmd4_desc: "عرض قائمة كاملة بالأوامر المتاحة.",
+    tag_price: "السعر", tag_analysis: "تحليل", tag_build: "تكوين", tag_help: "مساعدة",
+    faq_title: "الأسئلة الشائعة",
+    faq_desc: "كل ما تحتاج معرفته قبل البدء.",
+    faq1_q: "كيف أدعو RexyBot إلى خادمي?",
+    faq1_a: "انقر على زر \"دعوة RexyBot\" في أعلى الصفحة، سجّل الدخول إلى ديسكورد، اختر خادمك واقبل الأذونات.",
+    faq2_q: "البوت لا يرد، ماذا أفعل?",
+    faq2_a: "تأكد من أن RexyBot لديه إذن قراءة الرسائل وإرسالها. تأكد من بدء الأمر بـ ! دون مسافة.",
+    faq3_q: "من أين تأتي الأسعار المعروضة?",
+    faq3_a: "يتم جلب الأسعار في الوقت الفعلي من LDLC.com وMateriel.net، أكبر تجار الأجهزة في فرنسا.",
+    faq4_q: "هل البوت مجاني?",
+    faq4_a: "نعم، RexyBot مجاني تماماً، تم تطويره وصيانته من قِبَل Rex لمجتمع الحاسوب.",
+    contact_title: "مشكلة؟ اقتراح؟",
+    contact_desc: "انضم إلى خادم دعم ديسكورد للتواصل مع Rex مباشرة.",
+    contact_btn: "الانضمام إلى دعم ديسكورد",
+    footer: "صنع بـ ❤️ من Rex",
+  }
+};
 
-  const container = document.getElementById('term-output');
-  let seqIdx = 0;
+function setLang(lang) {
+  const html = document.documentElement;
+  html.setAttribute('lang', lang);
+  html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 
-  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  });
 
-  async function typeText(el, text, speed = 38) {
-    for (const ch of text) {
-      el.textContent += ch;
-      await sleep(speed);
+  // Update all translatable elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key]) {
+      el.innerHTML = i18n[lang][key];
+    }
+  });
+
+  localStorage.setItem('rexybot-lang', lang);
+}
+
+// Load saved language
+const savedLang = localStorage.getItem('rexybot-lang') || 'fr';
+setLang(savedLang);
+
+// ── TERMINAL ANIMATION ────────────────────────────────────────────────────────
+const sequences = [
+  [
+    { type: 'cmd', text: '!prix RTX 4070' },
+    { type: 'out', text: '🔍 Recherche en cours...', delay: 600 },
+    { type: 'out ok', text: '✅ LDLC — RTX 4070 Zotac — 519,90 €', delay: 400 },
+    { type: 'out ok', text: '✅ Materiel.net — RTX 4070 MSI — 509,90 €', delay: 300 },
+  ],
+  [
+    { type: 'cmd', text: '!bottleneck Ryzen 5 7600X / RTX 4070' },
+    { type: 'out', text: '🤖 Analyse IA en cours...', delay: 700 },
+    { type: 'out ok', text: '✅ Bottleneck léger — 8% côté CPU', delay: 500 },
+    { type: 'out ok', text: '✅ Config équilibrée pour le gaming !', delay: 300 },
+  ],
+  [
+    { type: 'cmd', text: '!build 1000' },
+    { type: 'out', text: '🤖 Génération config IA...', delay: 500 },
+    { type: 'out ok', text: '✅ CPU : Ryzen 5 7600 — 199€', delay: 300 },
+    { type: 'out ok', text: '✅ GPU : RTX 4070 — 519€', delay: 300 },
+  ],
+];
+
+const container = document.getElementById('term-output');
+let seqIdx = 0;
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+async function typeText(el, text, speed = 38) { for (const ch of text) { el.textContent += ch; await sleep(speed); } }
+async function runSequence(seq) {
+  container.innerHTML = '';
+  for (const step of seq) {
+    await sleep(step.delay || 200);
+    const line = document.createElement('div');
+    if (step.type === 'cmd') {
+      line.innerHTML = '<span class="term-prompt">rex@discord ~ $ </span>';
+      container.appendChild(line);
+      const cmdSpan = document.createElement('span');
+      cmdSpan.className = 'term-cmd';
+      line.appendChild(cmdSpan);
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      line.appendChild(cursor);
+      await typeText(cmdSpan, step.text);
+      cursor.remove();
+    } else {
+      line.className = 'term-output' + (step.type.includes('ok') ? ' ok' : '');
+      container.appendChild(line);
+      await typeText(line, step.text, 18);
     }
   }
-
-  async function runSequence(seq) {
-    container.innerHTML = '';
-    for (const step of seq) {
-      await sleep(step.delay || 200);
-      const line = document.createElement('div');
-
-      if (step.type === 'cmd') {
-        line.innerHTML = '<span class="term-prompt">rex@discord ~ $ </span>';
-        container.appendChild(line);
-        const cmdSpan = document.createElement('span');
-        cmdSpan.className = 'term-cmd';
-        line.appendChild(cmdSpan);
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        line.appendChild(cursor);
-        await typeText(cmdSpan, step.text);
-        cursor.remove();
-      } else {
-        line.className = 'term-output' + (step.type.includes('ok') ? ' ok' : '');
-        container.appendChild(line);
-        await typeText(line, step.text, 18);
-      }
-    }
-
-    // curseur final clignotant
-    await sleep(400);
-    const final = document.createElement('div');
-    final.innerHTML = '<span class="term-prompt">rex@discord ~ $ </span><span class="cursor"></span>';
-    container.appendChild(final);
-
-    await sleep(2800);
-  }
-
-  async function loop() {
-    while (true) {
-      await runSequence(sequences[seqIdx % sequences.length]);
-      seqIdx++;
-    }
-  }
-
-  loop();
+  await sleep(400);
+  const final = document.createElement('div');
+  final.innerHTML = '<span class="term-prompt">rex@discord ~ $ </span><span class="cursor"></span>';
+  container.appendChild(final);
+  await sleep(2800);
+}
+async function loop() { while (true) { await runSequence(sequences[seqIdx % sequences.length]); seqIdx++; } }
+loop();
 </script>
-
 </body>
 </html>
